@@ -1,0 +1,2 @@
+80 layers × 4,096 seq × 2 (K+V) × 8 KV heads × 128 dim × 2 bytes
+= 1,342,177,280 bytes ≈ 1.25 GB per request

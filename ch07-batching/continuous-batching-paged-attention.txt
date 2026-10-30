@@ -1,0 +1,35 @@
+                    ┌──────────────────────────────────┐
+                    │     Incoming Request Queue       │
+                    │  (HTTP/gRPC clients sending      │
+                    │   completion/generation requests)│
+                    └──────────────┬───────────────────┘
+                                   │
+                    ┌──────────────▼──────────────────┐
+                    │        Scheduler (Rust)         │
+                    │                                 │
+                    │  1. Check available KV blocks   │
+                    │  2. Select longest-running      │
+                    │     requests for decode batch   │
+                    │  3. Select prefills that fit    │
+                    │     in token budget             │
+                    │  4. Return batch to engine      │
+                    └──────────────┬──────────────────┘
+                                   │
+              ┌────────────────────┼──────────────────────┐
+              │                    │                      │
+    ┌─────────▼─────────┐  ┌──────▼───────┐   ┌─────────▼──────────┐
+    │   Prefill Engine  │  │  Decode      │   │  Block Allocator   │
+    │   (Compute-bound) │  │  Engine      │   │  (PagedAttention)  │
+    │                   │  │  (Memory-    │   │                    │
+    │   Process full    │  │   bound)     │   │  Allocate/free     │
+    │   prompt in       │  │              │   │  blocks from pool  │
+    │   parallel        │  │  Attend to   │   │  via block tables  │
+    └─────────┬─────────┘  └──────┬───────┘   └───────────┬────────┘
+              │                   │                       │
+              └───────────────────┼───────────────────────┘
+                                  │
+                    ┌─────────────▼─────────────┐
+                    │    Response Assembly      │
+                    │    (Streaming tokens to   │
+                    │     clients via SSE/gRPC) │
+                    └───────────────────────────┘

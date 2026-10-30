@@ -1,0 +1,1 @@
+FFN(x) = W2 * ( SiLU(W1 * x) ⊙ (W3 * x) )

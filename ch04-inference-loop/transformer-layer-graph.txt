@@ -1,0 +1,24 @@
+Input x (batch, seq_len, d_model)
+  |
+  v
+RMSNorm(x) ────────────────+
+  |                         |
+  v                         |
+Attention (GQA)             |
+  |                         |
+  v                         |
+x + Attention(RMSNorm(x))   |  (residual connection)
+  |                         |
+  v                         |
+RMSNorm(y)                  |
+  |                         |
+  v                         |
+FFN(SwiGLU)                 |
+  |                         |
+  v                         |
+y + FFN(RMSNorm(y))         |  (residual connection)
+  |                         |
+  +-------------------------+
+  |
+  v
+Output (batch, seq_len, d_model)

@@ -1,0 +1,16 @@
+Standard O(n³) matmul:
+  for i in 0..M:
+    for j in 0..N:
+      for k in 0..K:
+        C[i][j] += A[i][k] * B[k][j]
+
+Cache-blocked matmul:
+  for ii in 0..M step BLOCK_M:
+    for jj in 0..N step BLOCK_N:
+      for kk in 0..K step BLOCK_K:
+        // Process a BLOCK_M x BLOCK_N submatrix
+        // where all data fits in L1/L2 cache
+        for i in ii..min(ii+BLOCK_M, M):
+          for j in jj..min(jj+BLOCK_N, N):
+            for k in kk..min(kk+BLOCK_K, K):
+              C[i][j] += A[i][k] * B[k][j]

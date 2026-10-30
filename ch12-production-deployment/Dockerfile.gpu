@@ -1,0 +1,7 @@
+# For GPU deployment
+FROM nvidia/cuda:12.2.2-runtime-ubuntu22.04 AS gpu-runtime
+WORKDIR /app
+COPY --from=builder /app/target/release/llm-rs-server .
+COPY --from=builder /app/models ./models
+EXPOSE 8080
+ENTRYPOINT ["./llm-rs-server"]

@@ -1,0 +1,5 @@
+For each pair of dimensions (2k, 2k+1):
+  q_{2k}   = q_{2k} * cos(m * theta_k) - q_{2k+1} * sin(m * theta_k)
+  q_{2k+1} = q_{2k} * sin(m * theta_k) + q_{2k+1} * cos(m * theta_k)
+
+where theta_k = 10000^(-2k / d_head)  // d_head = per-head dim

@@ -1,0 +1,75 @@
+# k8s/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-inference
+  labels:
+    app: llm-inference
+    version: v1.0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llm-inference
+  template:
+    metadata:
+      labels:
+        app: llm-inference
+        version: v1.0
+    spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: nvidia.com/gpu.product
+                operator: In
+                values:
+                - NVIDIA-A100-SXM4-80GB
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - llm-inference
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: inference
+        image: registry.example.com/llm-rs-server:v1.0
+        resources:
+          requests:
+            nvidia.com/gpu: 1
+            memory: "32Gi"
+            cpu: "8"
+          limits:
+            nvidia.com/gpu: 1
+            memory: "64Gi"
+            cpu: "16"
+        ports:
+        - containerPort: 8080
+          name: http
+        env:
+        - name: MODEL_PATH
+          value: "/app/models/llama3-8b/model.safetensors"
+        - name: MAX_BATCH_SIZE
+          value: "32"
+        - name: MAX_PREFILL_TOKENS
+          value: "4096"
+        - name: OTEL_EXPORTER_OTLP_ENDPOINT
+          value: "http://otel-collector:4317"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 5

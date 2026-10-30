@@ -1,0 +1,1 @@
+RMSNorm(x) = x / sqrt(mean(x^2) + epsilon) * gamma

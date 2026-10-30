@@ -1,0 +1,27 @@
+# k8s/shadow-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llm-inference-shadow
+  labels:
+    app: llm-inference-shadow
+    version: v2.0-int4
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: llm-inference-shadow
+  template:
+    metadata:
+      labels:
+        app: llm-inference-shadow
+        version: v2.0-int4
+    spec:
+      containers:
+      - name: shadow
+        image: registry.example.com/llm-rs-server:v2.0-int4
+        env:
+        - name: SHADOW_MODE
+          value: "true"
+        - name: SHADOW_SAMPLE_RATE
+          value: "0.01"  # 1% of traffic

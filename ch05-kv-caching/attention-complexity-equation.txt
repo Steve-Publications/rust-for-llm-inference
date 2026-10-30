@@ -1,0 +1,1 @@
+Sum(t=1 to n) of t * d_attention = O(n² * d)

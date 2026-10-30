@@ -1,0 +1,14 @@
+Time →
+
+Kernel 1: |--- Embedding Lookup (0.5 ms) ---|
+Kernel 2: |------ RMSNorm (0.1 ms) -----------|
+Kernel 3: |-- QKV Projection (0.8 ms) --------|
+Kernel 4: |-- Attention (2.5 ms) -------------|
+Kernel 5: |-- Output Projection (0.6 ms) -----|
+Kernel 6: |-- FFN (3.0 ms) -------------------|
+Kernel 7: |-- RMSNorm + Residual (0.2 ms) ----|
+
+Total decode step: ~7.7 ms per token
+
+GPU Utilization: ████████████████░░░░ 85%
+Memory Bandwidth: ████████████████████░ 92% of peak

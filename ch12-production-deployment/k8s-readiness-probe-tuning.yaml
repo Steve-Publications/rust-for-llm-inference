@@ -1,0 +1,7 @@
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 60
+  periodSeconds: 5
+  failureThreshold: 3       # 15 seconds before traffic stops

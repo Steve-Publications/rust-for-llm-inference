@@ -1,0 +1,3 @@
+Q = X * W^Q    (n x d_model) * (d_model x d_k)  =>  n x d_k
+K = X * W^K    (n x d_model) * (d_model x d_k)  =>  n x d_k
+V = X * W^V    (n x d_model) * (d_model x d_v)  =>  n x d_v

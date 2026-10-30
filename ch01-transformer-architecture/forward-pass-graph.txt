@@ -1,0 +1,49 @@
+  x (input)
+   |
+   v
+  RMSNorm ──────────────+
+   |                     |
+   v                     |
+  WQ, WK, WV             |
+   |                     |
+   v                     |
+  Q, K, V                |
+   |                     |
+   |    +-----------------+
+   |    |
+   v    v
+  Q*K^T/sqrt(d_k)
+      |
+      v
+   softmax (causal mask)
+      |
+      v
+  attn_weights * V
+      |
+      v
+  WO (output projection)
+      |
+      +--------+
+               |
+               v
+            Add(x, ...)
+               |
+               v
+          RMSNorm
+               |
+               v
+         W1, W3 (expansion)
+               |
+               v
+           SiLU gate
+               |
+               v
+          W2 (projection)
+               |
+               +--------+
+                        |
+                        v
+                     Add(y, ...)
+                        |
+                        v
+                      Output

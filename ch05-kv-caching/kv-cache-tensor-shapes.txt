@@ -1,0 +1,2 @@
+K_cache[layer]: [batch, heads, seq_len, head_dim]
+V_cache[layer]: [batch, heads, seq_len, head_dim]

@@ -1,0 +1,1 @@
+Cache size = n_layers * seq_len * 2 * n_heads * head_dim * bytes_per_elem * batch_size

@@ -1,0 +1,4 @@
+Forward:  W is split across GPUs along output dim
+          Each GPU computes its shard
+          All-reduce to combine outputs
+Backward: Gradient all-reduce before weight update

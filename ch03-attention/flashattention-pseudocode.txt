@@ -1,0 +1,18 @@
+Input: Q_block [B_q x d], K_block [B_k x d], V_block [B_k x d]
+Output: partial_output [B_q x B_k]
+
+Pass 1 (compute online softmax statistics):
+  m_i = -inf, l_i = 0  (for each row i)
+  for each block j:
+    S_ij = Q_i * K_j^T / sqrt(d)  (attention scores for this block)
+    m_new_i = max(m_i, max(S_ij))  (row-wise max over all blocks seen so far)
+    l_new_i = l_i * exp(m_i - m_new_i) + sum(exp(S_ij - m_new_i))  (log-sum-exp)
+    m_i = m_new_i
+    l_i = l_new_i
+
+Pass 2 (compute softmax weights and accumulate):
+  O_i = 0  (output accumulator)
+  for each block j:
+    S_ij = Q_i * K_j^T / sqrt(d)
+    P_ij = exp(S_ij - m_i) / l_i  (softmax weights)
+    O_i += P_ij * V_j  (weighted sum of values)

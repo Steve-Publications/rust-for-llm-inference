@@ -1,0 +1,20 @@
++--------------------------------------------------+
+| Header size: uint64 (8 bytes)                    |
++--------------------------------------------------+
+| JSON header (variable length, typically 1-100KB) |
+| {                                                |
+|   "__metadata__": {"format": "pt"},              |
+|   "tok_embeddings.weight": {                     |
+|     "dtype": "float16",                          |
+|     "shape": [32000, 4096],                      |
+|     "data_offsets": [0, 262144000]               |
+|   },                                             |
+|   ...                                            |
+| }                                                |
++--------------------------------------------------+
+| Raw tensor data (contiguous, in header order)    |
+| tok_embeddings.weight (262,144,000 bytes)        |
+| lm_head.weight (131,072,000 bytes)               |
+| model.layers.0.self_attn.q_proj.weight           |
+| ...                                              |
++--------------------------------------------------+

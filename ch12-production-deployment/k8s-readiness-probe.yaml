@@ -1,0 +1,7 @@
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 60   # Allow time for model loading
+  periodSeconds: 5
+  failureThreshold: 3

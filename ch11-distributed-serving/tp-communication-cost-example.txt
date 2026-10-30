@@ -1,0 +1,2 @@
+2 * (2-1)/2 * 4096 * 2048 * 2 = 16 MB per layer
+For 32 layers: 512 MB of inter-GPU communication

@@ -1,0 +1,28 @@
+                    Input Tensor [batch, seq_len, d_model]
+                              |
+              +-------------+-------------+
+              |                           |
+        GPU 0 (rank 0)            GPU 1 (rank 1)
+        W_q0: [d_model, d_model/2]  W_q1: [d_model, d_model/2]
+        W_k0: [d_model, d_model/4]  W_k1: [d_model, d_model/4]
+        W_v0: [d_model, d_model/4]  W_v1: [d_model, d_model/4]
+              |                           |
+              v                           v
+        Q0 = x @ W_q0^T               Q1 = x @ W_q1^T
+        K0 = x @ W_k0^T               K1 = x @ W_k1^T
+        V0 = x @ W_v0^T               V1 = x @ W_v1^T
+              |                           |
+              +--------+  +--------------+
+                       |  |
+                       v  v
+                  Attention(Q, K, V)
+                       |
+                      WO (output proj)
+                  [d_model, d_model] split across GPUs
+                       |
+              +--------+  +--------------+
+              |                           |
+        All-Reduce (combine outputs)    |
+              |                           |
+              v                           v
+          Combined Output [batch, seq_len, d_model]

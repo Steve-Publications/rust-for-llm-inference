@@ -1,0 +1,5 @@
+x_int = round(x_fp / scale) + zero_point
+
+where:
+  scale = (max(x) - min(x)) / (2^bits - 1)
+  zero_point = round(-min(x) / scale)

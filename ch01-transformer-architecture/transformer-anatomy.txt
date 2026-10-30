@@ -1,0 +1,18 @@
+                    Input x (batch, seq_len, d_model)
+                          |
+                +---------+---------+
+                |                   |
+          RMSNorm(x)            Residual
+                |                   |
+         +------+------+        Skip
+         |             |
+    Attention       FFN(SwiGLU)
+    Layer           Layer
+         |             |
+    RMSNorm      RMSNorm
+         |             |
+         +------+------+
+                |
+          Add (residual)
+                |
+               Output

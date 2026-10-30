@@ -1,0 +1,5 @@
+For dimension pair (2k, 2k+1) at position m:
+  [q_{2k}(m)]   [cos(mθ_k)  -sin(mθ_k)] [q_{2k}]
+  [q_{2k+1}(m)] = [sin(mθ_k)   cos(mθ_k)] [q_{2k+1}]
+
+where θ_k = 10000^(-2k / d_head)   // d_head = head dimension

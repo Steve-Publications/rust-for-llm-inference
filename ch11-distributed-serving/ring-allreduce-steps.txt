@@ -1,0 +1,9 @@
+Phase 1 (reduce-scatter), 3 steps for p = 4: each GPU sends one segment
+of its data to the next GPU and adds in the segment it received from the
+previous GPU, so the combined value circulates around the ring.
+After p - 1 steps, each GPU holds the fully-reduced value of exactly one
+segment (one quarter of the data), not the complete result.
+
+Phase 2 (all-gather), another 3 steps: each GPU sends its completed
+segment around the ring until it has received all the others.
+After 2(p - 1) steps total, every GPU has the complete result.

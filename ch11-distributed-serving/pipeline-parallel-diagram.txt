@@ -1,0 +1,6 @@
+GPU 0 (layers 0-15):    |---L0---|---L1---|...|---L15---|
+                         |         |         |         |
+GPU 1 (layers 16-31):                 |---L16---|---L17---|...|---L31---|
+                                       |         |         |         |
+
+Pipeline bubble: GPU 1 is idle while GPU 0 processes the first microbatch.

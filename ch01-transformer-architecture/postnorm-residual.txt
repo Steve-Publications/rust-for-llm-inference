@@ -1,0 +1,2 @@
+y = RMSNorm(x + Attention(x))
+z = RMSNorm(y + FFN(y))

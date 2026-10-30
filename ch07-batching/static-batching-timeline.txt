@@ -1,0 +1,9 @@
+Time →
+
+Request A: [==== Prefill ====][=== Token 1 ===][=== Token 2 ===][=== Token 3 ===]...[=== Token 50 ===]
+Request B: [==== Prefill ====][=== Token 1 ===][=== Token 2 ===][=== Token 3 ===]...[=== Token 10 ===][IDLE][IDLE]...
+
+GPU:       [==== Prefill Batch ====][======== Decode Batch (50 tokens) ========]
+            ^                       ^
+            Both requests           B's slot idle for 40 tokens while A
+            processed together      finishes; the GPU computes for one

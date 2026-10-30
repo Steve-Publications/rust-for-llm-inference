@@ -1,0 +1,10 @@
+Block size: 16 tokens
+Per-layer block memory: 2 (K+V) × 8 KV heads × 16 tokens × 128 dim × 2 bytes = 65,536 bytes ≈ 64 KB
+
+For a 32-layer model:
+  Total per-block memory: 32 × 64 KB = 2 MB
+
+An A100-80GB with 14 GB available for KV cache can store:
+  14 GB / 2 MB per block = 7,168 blocks
+  At 16 tokens per block: 114,688 total token-slots
+  For batch size 32: ~3,584 tokens per request average

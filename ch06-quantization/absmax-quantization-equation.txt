@@ -1,0 +1,2 @@
+x_int = round(x_fp / scale), where scale = max(|x|) / 127
+x_dequantized = x_int * scale

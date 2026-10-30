@@ -1,0 +1,1 @@
+Bubble size = (2 * s - 2) / m  (fraction of total time)

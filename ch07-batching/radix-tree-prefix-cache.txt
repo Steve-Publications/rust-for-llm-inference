@@ -1,0 +1,10 @@
+Radix Tree (KV Cache Prefix Storage):
+                    root
+                   /    \
+              "Hello"   "Hi"
+               /          \
+           " world"     " there"
+             |            |
+           "!"         " friend"
+            |
+       [KV block: 0x1A2B]

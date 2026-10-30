@@ -1,0 +1,26 @@
+groups:
+- name: llm-inference-alerts
+  rules:
+  - alert: HighErrorRate
+    expr: rate(inference_requests_failed_total[5m]) / rate(inference_requests_total[5m]) > 0.05
+    for: 2m
+    labels:
+      severity: critical
+    annotations:
+      summary: "Inference error rate above 5%"
+      
+  - alert: HighLatencyP95
+    expr: histogram_quantile(0.95, rate(inference_latency_seconds_bucket[5m])) > 10.0
+    for: 5m
+    labels:
+      severity: warning
+    annotations:
+      summary: "P95 latency above 10 seconds"
+      
+  - alert: QueueDepthHigh
+    expr: queue_depth > 100
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      summary: "Request queue depth above 100"

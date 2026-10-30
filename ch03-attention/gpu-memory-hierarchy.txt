@@ -1,0 +1,18 @@
+GPU Memory Hierarchy (from fastest to slowest):
+
+Registers (~32 per thread)    |  Single-cycle access, tiny capacity
+      |
+Shared/SRAM (~100KB per SM)   |  ~50 cycles, shared among threads in block
+      |
+L2 Cache (~10MB for A100)     |  ~200-300 cycles, shared across all SMs
+      |
+HBM (High Bandwidth Memory)   |  ~300-600 cycles, 40GB/80GB capacity
+      |
+Global Storage                |  Disk or CPU RAM (not accessible during kernel)
+
+During standard attention:
+  Q, K, V read from HBM → compute in registers → attention matrix written to HBM → read back → multiply with V
+
+During FlashAttention:
+  Q, K, V blocks loaded to SRAM → partial softmax computed in SRAM → results accumulated in registers → 
+  only final output written to HBM

@@ -1,0 +1,10 @@
+Time →
+
+Request A: [==== Prefill ====][=== T1 ===][=== T2 ===]...[=== T50 ===]
+Request B: [==== Prefill ====][=== T1 ===][=== T2 ===][=== T3 ===]...[=== T10 ===]
+Request C:                      [==== Prefill ====][=== T1 ===][=== T2 ===]...
+
+GPU:       [==== Prefill Batch (A,B) ========][Decode Batch (A,B)]
+            [Decode Batch (A,B)]                [Decode Batch (A,B)]
+            ...                                 [Decode Batch (A,C)]  ← B finished, C joins
+                                                    [Decode Batch (C)]  ← A finished, only C left

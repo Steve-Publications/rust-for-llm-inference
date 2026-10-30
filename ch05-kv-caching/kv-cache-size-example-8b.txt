@@ -1,0 +1,3 @@
+32 layers × 4,096 seq × 2 (K+V) × 8 KV heads × 128 dim × 2 bytes
+= 32 × 4,096 × 2 × 8 × 128 × 2
+= 536,870,912 bytes ≈ 512 MB

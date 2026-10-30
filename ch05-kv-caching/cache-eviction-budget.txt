@@ -1,0 +1,3 @@
+Per-layer cache: 2 (K+V) × 8 KV heads × 4,096 tokens × 128 dim × 2 bytes = ~16 MB
+For 32 layers: 32 × 16 MB = 512 MB per request
+For batch size 32: 16 GB total

@@ -1,0 +1,24 @@
++--------------------------------------------------+
+|  Header (24 bytes)                               |
+|  - Magic: "GGUF" (4 bytes)                       |
+|  - Version: uint32 (4 bytes)                     |
+|  - Tensor count: uint64 (8 bytes)                |
+|  - Metadata KV pair count: uint64 (8 bytes)      |
++--------------------------------------------------+
+|  Metadata KV pairs                               |
+|  - Key: string + value                           |
+|  - Examples: model_architecture, vocab_size,     |
+|             rope_theta, quantization_scheme      |
++--------------------------------------------------+
+|  Tensor data header (per tensor)                 |
+|  - Name: string                                  |
+|  - N dims: uint32                                |
+|  - Shape: [dim0, dim1, ...]                      |
+|  - Type: quantization scheme enum                |
+|  - Offset: uint64 (byte offset in file)          |
++--------------------------------------------------+
+|  Raw tensor data                                 |
+|  - Contiguous binary data for all tensors        |
+|  - Each tensor's data starts at its declared     |
+|    byte offset                                   |
++--------------------------------------------------+

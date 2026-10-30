@@ -1,0 +1,1 @@
+LayerNorm(x) = (x - mean(x)) / std(x) * gamma + beta

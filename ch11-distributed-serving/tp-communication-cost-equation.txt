@@ -1,0 +1,1 @@
+Per-layer comm cost = 2 * (p - 1) / p * d_model * seq_len * bytes_per_elem
